@@ -1,0 +1,64 @@
+/* Full page gradient background */
+.login-page {
+  --background: linear-gradient(135deg, #FF758C, #FF7EB3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card styling */
+.login-card {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Logo section */
+.logo-section {
+  margin-bottom: 24px;
+
+  .app-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .login-title {
+    color: #FF5C8D;
+    margin-bottom: 4px;
+  }
+
+  .login-subtitle {
+    color: #777777;
+    font-size: 0.9rem;
+  }
+}
+
+/* Inputs */
+.input-item {
+  --background: #f8f8f8;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  --padding-start: 16px;
+  --inner-padding-end: 16px;
+  color: #777777;
+}
+
+/* Login button */
+.login-btn {
+  --background: #FF5C8D;
+  --background-activated: #ff427b;
+  --border-radius: 12px;
+  margin-top: 8px;
+  height: 48px;
+  font-size: 1.1rem;
+}
+
+/* Register link */
+.register-link {
+  color: #FF5C8D;
+  font-weight: 600;
+  text-decoration: none;
+}

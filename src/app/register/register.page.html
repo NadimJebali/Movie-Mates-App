@@ -1,0 +1,68 @@
+<ion-content class="register-page" fullscreen>
+
+  <ion-grid class="ion-align-items-center ion-justify-content-center" style="height: 100%;">
+    <ion-row class="ion-align-items-center ion-justify-content-center" style="height: 100%;">
+      <ion-col size="12" size-md="6" size-lg="4">
+
+        <ion-card class="register-card">
+          <ion-card-content class="ion-padding">
+
+            <div class="logo-section ion-text-center">
+              <img src="assets/logo.png" alt="App Logo" class="app-logo">
+              <h2 class="register-title">Create Account ✨</h2>
+              <p class="register-subtitle">Sign up and join the adventure</p>
+            </div>
+
+            <form (ngSubmit)="onRegister()">
+
+              <ion-item class="input-item">
+                <ion-input
+                  [(ngModel)]="name"
+                  name="name"
+                  type="text"
+                  placeholder="Full Name"
+                  required
+                  clear-input
+                ></ion-input>
+              </ion-item>
+
+              <ion-item class="input-item">
+                <ion-input
+                  [(ngModel)]="email"
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  required
+                  clear-input
+                ></ion-input>
+              </ion-item>
+
+              <ion-item class="input-item">
+                <ion-input
+                  [(ngModel)]="password"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  required
+                  clear-input
+                ></ion-input>
+              </ion-item>
+
+              <ion-button expand="block" type="submit" class="register-btn">
+                Sign Up
+              </ion-button>
+            </form>
+
+            <p class="ion-text-center text-muted mt-3">
+              Already have an account?
+              <a routerLink="/login" class="login-link">Log in</a>
+            </p>
+
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

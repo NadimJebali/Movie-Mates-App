@@ -1,0 +1,28 @@
+/* Full gradient background */
+.splash-page {
+  --background: linear-gradient(135deg, #FF758C, #FF7EB3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Logo styling */
+.splash-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 24px;
+  margin-bottom: 24px;
+}
+
+/* Title */
+.splash-title {
+  color: #ffffff;
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+/* Subtitle */
+.splash-subtitle {
+  color: #ffffffcc;
+  font-size: 1rem;
+}
