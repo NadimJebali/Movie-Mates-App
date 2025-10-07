@@ -19,11 +19,11 @@ const routes: Routes = [
     loadChildren: () => import('./splash-screen/splash-screen.module').then( m => m.SplashScreenPageModule)
   },
   {
-    path: 'user-details',
+    path: 'details',
     loadChildren: () => import('./user-details/user-details.module').then( m => m.UserDetailsPageModule)
   },
   {
-    path: 'user-profile',
+    path: 'profile',
     loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule)
   },
   {
