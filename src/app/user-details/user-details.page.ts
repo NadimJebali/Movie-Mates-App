@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType } from '@capacitor/camera';
-import { Database, ref, set } from '@angular/fire/database';
+import { FirebaseService } from '../services/firebase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-details',
@@ -9,14 +10,14 @@ import { Database, ref, set } from '@angular/fire/database';
   standalone: false,
 })
 export class UserDetailsPage implements OnInit {
-  constructor(private db: Database) {}
+  constructor(private router: Router,
+    private firebaseService: FirebaseService) {}
 
   ngOnInit() {}
 
   user = {
     name: '',
     username: '',
-    dob: '',
     age: '',
     bio: '',
     images: [] as string[],
@@ -70,17 +71,30 @@ export class UserDetailsPage implements OnInit {
     if (image) this.user.images.push(image.dataUrl!);
   }
 
-  saveProfile() {
-    // Create a reference path, e.g., "users/alice"
-    const userRef = ref(this.db, 'users/');
+  // ✅ Save profile to Firebase
+  async saveProfile() {
+    try {
+      const currentUser = this.firebaseService.getCurrentUser();
+      if (!currentUser) {
+        console.error('[v0] No logged-in user found');
+        return;
+      }
 
-    // Write data
-    set(userRef, this.user)
-      .then(() => {
-        console.log('User saved successfully!');
-      })
-      .catch((error) => {
-        console.error('Error saving user:', error);
-      });
+      const userData = {
+        name: this.user.name,
+        username: this.user.username,
+        age: this.user.age,
+        bio: this.user.bio,
+        movies: this.user.movies,
+        images: this.user.images,
+      };
+
+      await this.firebaseService.saveUserProfile(currentUser.uid, userData);
+
+      console.log('[v0] User profile saved successfully:', currentUser.uid);
+      this.router.navigate(['/home'])
+    } catch (error) {
+      console.error('[v0] Error saving user profile:', error);
+    }
   }
 }

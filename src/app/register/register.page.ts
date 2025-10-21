@@ -21,7 +21,7 @@ export class RegisterPage implements OnInit {
   ) {}
 
   async onRegister() {
-    if (!this.name || !this.email || !this.password) {
+    if (!this.email || !this.password) {
       this.errorMessage = 'Please fill in all fields';
       return;
     }
@@ -35,18 +35,8 @@ export class RegisterPage implements OnInit {
         this.password
       );
       console.log('[v0] Registration successful for user:', user.uid);
-
-      // Save user profile to Realtime Database
-      await this.firebaseService.saveUserProfile(user.uid, {
-        name: this.name,
-        email: this.email,
-        photo: 'assets/logo.png',
-        age: 0,
-        bio: '',
-      });
-
       console.log('[v0] User profile saved to database');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/details']);
     } catch (error: any) {
       console.error('[v0] Registration failed:', error);
       this.errorMessage =
