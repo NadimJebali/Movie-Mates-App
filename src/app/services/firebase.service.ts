@@ -36,7 +36,7 @@ export class FirebaseService {
 
   private initializeFirebase() {
     try {
-      this.app = initializeApp((environment).firebase);
+      this.app = initializeApp(environment.firebase);
       this.database = getDatabase(this.app);
       this.auth = getAuth(this.app);
 
