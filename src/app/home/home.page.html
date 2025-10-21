@@ -1,20 +1,31 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="swipe-page" fullscreen>
+  <div class="card-container">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <div
+      class="swipe-card"
+      *ngFor="let user of users; let i = index"
+      [style.zIndex]="users.length - i"
+      (pan)="onPan($event, i)"
+      (panend)="onPanEnd($event, i)"
+      [ngStyle]="{
+        transform: user.transform,
+        transition: user.transition
+      }"
+    >
+      <div class="card-header">
+        <h2>{{ user.name }}</h2>
+        <p>{{ user.age }} years old</p>
+      </div>
+      <img [src]="user.photo" alt="{{ user.name }}" class="card-photo" />
+      <div class="card-footer">
+        <ion-button fill="solid" color="danger" size="small" (click)="swipeLeft(i)">
+          ✖
+        </ion-button>
+        <ion-button fill="solid" color="success" size="small" (click)="swipeRight(i)">
+          ✔
+        </ion-button>
+      </div>
+    </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
 </ion-content>

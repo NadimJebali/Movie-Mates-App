@@ -3,7 +3,6 @@
     <ion-row>
       <ion-col size="12">
         <ion-card class="details-card">
-
           <!-- User Info Form -->
           <ion-item>
             <ion-label position="floating">Full Name</ion-label>
@@ -30,30 +29,35 @@
           <div class="image-preview">
             <img *ngFor="let img of user.images" [src]="img" />
           </div>
-          <ion-button expand="full" (click)="pickImage()">Choose Image</ion-button>
-          <ion-button expand="full" (click)="takePhoto()">Take Photo</ion-button>
+          <ion-button expand="full" (click)="pickImage()"
+            >Choose Image</ion-button
+          >
+          <ion-button expand="full" (click)="takePhoto()"
+            >Take Photo</ion-button
+          >
 
           <!-- Favorite Movies -->
-          <ion-item>
-            <ion-label position="floating">Add Favorite Movie</ion-label>
-            <ion-input [(ngModel)]="newMovie"></ion-input>
-          </ion-item>
-          <ion-button expand="full" (click)="addMovie()">Add Movie</ion-button>
-
-          <ion-list style="background-color: #eeeeee;">
-            <ion-item *ngFor="let movie of user.movies; let i = index">
-              {{ movie }}
-              <ion-button fill="clear" color="danger" slot="end" (click)="removeMovie(i)">
-                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-              </ion-button>
-            </ion-item>
-          </ion-list>
+          <!-- Favorite Movies -->
+          <ion-label>Favorite Movies</ion-label>
+          <div class="chips-container">
+            <ion-chip
+              *ngFor="let movie of availableMovies"
+              [color]="isSelected(movie) ? 'primary' : 'medium'"
+              (click)="toggleMovie(movie)"
+            >
+              <ion-label>{{ movie }}</ion-label>
+              <ion-icon
+                *ngIf="isSelected(movie)"
+                name="checkmark-circle"
+                color="success"
+              ></ion-icon>
+            </ion-chip>
+          </div>
 
           <!-- Save Button -->
           <ion-button expand="full" (click)="saveProfile()">
             Save Profile
           </ion-button>
-
         </ion-card>
       </ion-col>
     </ion-row>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraResultType } from '@capacitor/camera'
+import { Camera, CameraResultType } from '@capacitor/camera';
+import { Database, ref, set } from '@angular/fire/database';
 
 @Component({
   selector: 'app-user-details',
@@ -8,23 +9,49 @@ import { Camera, CameraResultType } from '@capacitor/camera'
   standalone: false,
 })
 export class UserDetailsPage implements OnInit {
-  constructor() {}
+  constructor(private db: Database) {}
 
   ngOnInit() {}
 
   user = {
     name: '',
     username: '',
-    dob:'',
-    age:'',
+    dob: '',
+    age: '',
     bio: '',
     images: [] as string[],
     movies: [] as string[],
   };
 
-  newMovie = '';
+  // ✅ Predefined movie list
+  availableMovies = [
+    'Inception',
+    'Interstellar',
+    'The Matrix',
+    'Titanic',
+    'Avatar',
+    'The Dark Knight',
+    'La La Land',
+    'Forrest Gump',
+    'The Shawshank Redemption',
+    'The Godfather',
+  ];
 
-  // Pick an image from gallery
+  // ✅ Toggle movie selection
+  toggleMovie(movie: string) {
+    const index = this.user.movies.indexOf(movie);
+    if (index > -1) {
+      this.user.movies.splice(index, 1);
+    } else {
+      this.user.movies.push(movie);
+    }
+  }
+
+  isSelected(movie: string): boolean {
+    return this.user.movies.includes(movie);
+  }
+
+  // ✅ Camera methods
   async pickImage() {
     const image = await Camera.getPhoto({
       quality: 90,
@@ -34,7 +61,6 @@ export class UserDetailsPage implements OnInit {
     if (image) this.user.images.push(image.dataUrl!);
   }
 
-  // Take a new photo
   async takePhoto() {
     const image = await Camera.getPhoto({
       quality: 90,
@@ -44,22 +70,17 @@ export class UserDetailsPage implements OnInit {
     if (image) this.user.images.push(image.dataUrl!);
   }
 
-  // Add favorite movie
-  addMovie() {
-    if (this.newMovie.trim()) {
-      this.user.movies.push(this.newMovie.trim());
-      this.newMovie = '';
-    }
-  }
-
-  // Remove movie
-  removeMovie(index: number) {
-    this.user.movies.splice(index, 1);
-  }
-
-  // Save profile (hook to your backend)
   saveProfile() {
-    console.log('Profile saved:', this.user);
-    // TODO: send this.user to your API or Firebase
+    // Create a reference path, e.g., "users/alice"
+    const userRef = ref(this.db, 'users/');
+
+    // Write data
+    set(userRef, this.user)
+      .then(() => {
+        console.log('User saved successfully!');
+      })
+      .catch((error) => {
+        console.error('Error saving user:', error);
+      });
   }
 }
