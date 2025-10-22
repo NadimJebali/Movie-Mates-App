@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { FirebaseService } from '../services/firebase.service';
 import { Router } from '@angular/router';
+import { UserRole } from '../enums/user-role.enum';
 
 @Component({
   selector: 'app-user-details',
@@ -10,8 +11,10 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class UserDetailsPage implements OnInit {
-  constructor(private router: Router,
-    private firebaseService: FirebaseService) {}
+  constructor(
+    private router: Router,
+    private firebaseService: FirebaseService
+  ) {}
 
   ngOnInit() {}
 
@@ -22,6 +25,7 @@ export class UserDetailsPage implements OnInit {
     bio: '',
     images: [] as string[],
     movies: [] as string[],
+    role: UserRole,
   };
 
   // ✅ Predefined movie list
@@ -87,12 +91,13 @@ export class UserDetailsPage implements OnInit {
         bio: this.user.bio,
         movies: this.user.movies,
         images: this.user.images,
+        role: 'USER',
       };
 
       await this.firebaseService.saveUserProfile(currentUser.uid, userData);
 
       console.log('[v0] User profile saved successfully:', currentUser.uid);
-      this.router.navigate(['/home'])
+      this.router.navigate(['/tabs']);
     } catch (error) {
       console.error('[v0] Error saving user profile:', error);
     }

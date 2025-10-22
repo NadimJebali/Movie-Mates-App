@@ -1,0 +1,66 @@
+<ion-content class="swipe-page" fullscreen>
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading users...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage && !isLoading" class="error-container">
+    <ion-icon name="alert-circle" color="danger"></ion-icon>
+    <p>{{ errorMessage }}</p>
+    <ion-button (click)="loadUsers()" fill="outline">
+      Try Again
+    </ion-button>
+  </div>
+
+  <!-- No Users State -->
+  <div *ngIf="!isLoading && !errorMessage && users.length === 0" class="no-users-container">
+    <ion-icon name="people" color="medium"></ion-icon>
+    <p>No users found</p>
+    <ion-button (click)="loadUsers()" fill="outline">
+      Refresh
+    </ion-button>
+  </div>
+
+  <!-- User Cards -->
+  <div class="card-container" *ngIf="!isLoading && !errorMessage && users.length > 0">
+    <div
+      class="swipe-card"
+      *ngFor="let user of users; let i = index"
+      [style.zIndex]="users.length - i"
+      (pan)="onPan($event, i)"
+      (panend)="onPanEnd($event, i)"
+      [ngStyle]="{
+        transform: user.transform,
+        transition: user.transition
+      }"
+    >
+      <div class="card-header">
+        <h2>{{ user.name || 'Unknown' }}</h2>
+        <p>{{ user.age || 0 }} years old</p>
+      </div>
+      <img [src]="user.photo || 'assets/logo.png'" alt="{{ user.name }}" class="card-photo" />
+      <div class="card-footer">
+        <ion-button
+          fill="solid"
+          color="danger"
+          size="small"
+          (click)="swipeLeft(i)"
+          [disabled]="isLoading"
+        >
+          ✖
+        </ion-button>
+        <ion-button
+          fill="solid"
+          color="success"
+          size="small"
+          (click)="swipeRight(i)"
+          [disabled]="isLoading"
+        >
+          ✔
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>
