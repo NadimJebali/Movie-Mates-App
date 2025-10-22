@@ -9,22 +9,24 @@
   <div *ngIf="errorMessage && !isLoading" class="error-container">
     <ion-icon name="alert-circle" color="danger"></ion-icon>
     <p>{{ errorMessage }}</p>
-    <ion-button (click)="loadUsers()" fill="outline">
-      Try Again
-    </ion-button>
+    <ion-button (click)="loadUsers()" fill="outline"> Try Again </ion-button>
   </div>
 
   <!-- No Users State -->
-  <div *ngIf="!isLoading && !errorMessage && users.length === 0" class="no-users-container">
+  <div
+    *ngIf="!isLoading && !errorMessage && users.length === 0"
+    class="no-users-container"
+  >
     <ion-icon name="people" color="medium"></ion-icon>
     <p>No users found</p>
-    <ion-button (click)="loadUsers()" fill="outline">
-      Refresh
-    </ion-button>
+    <ion-button (click)="loadUsers()" fill="outline"> Refresh </ion-button>
   </div>
 
   <!-- User Cards -->
-  <div class="card-container" *ngIf="!isLoading && !errorMessage && users.length > 0">
+  <div
+    class="card-container"
+    *ngIf="!isLoading && !errorMessage && users.length > 0"
+  >
     <div
       class="swipe-card"
       *ngFor="let user of users; let i = index"
@@ -39,8 +41,15 @@
       <div class="card-header">
         <h2>{{ user.name || 'Unknown' }}</h2>
         <p>{{ user.age || 0 }} years old</p>
+        <p class="user-bio" *ngIf="user.bio">{{ user.bio }}</p>
       </div>
-      <img [src]="user.photo || 'assets/logo.png'" alt="{{ user.name }}" class="card-photo" />
+
+      <img
+        [src]="user.photo || 'assets/no-image.jpg'"
+        alt="{{ user.name }}"
+        class="card-photo"
+      />
+
       <div class="card-footer">
         <ion-button
           fill="solid"
@@ -59,6 +68,19 @@
           [disabled]="isLoading"
         >
           ✔
+        </ion-button>
+      </div>
+
+      <!-- 💡 AI Compatibility Button -->
+      <div class="ai-compatibility">
+        <ion-button
+          fill="clear"
+          class="ai-button"
+          expand="block"
+          (click)="checkCompatibility(user.id)"
+        >
+          <ion-icon name="sparkles-outline" slot="start"></ion-icon>
+          AI Match Check
         </ion-button>
       </div>
     </div>

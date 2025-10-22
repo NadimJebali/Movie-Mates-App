@@ -21,6 +21,8 @@ export const environment = {
 
     measurementId: 'G-GJJ7663XRH',
   },
+  geminiApiKey: 'AIzaSyB3pyl0Tu-RGrvdokjaJ2c-oN9yKnS-imM'
+
 };
 
 /*
