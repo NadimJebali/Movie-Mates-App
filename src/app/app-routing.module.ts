@@ -25,9 +25,20 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'details',
+    loadChildren: () =>
+      import('./user-details/user-details.module').then(
+        (m) => m.UserDetailsPageModule
+      ),
+  },
+  {
     path: 'tabs',
     loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
   },
 ];
 

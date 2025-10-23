@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar class="admin-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Manage Users</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading users...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage && !isLoading" class="error-container">
+    <ion-icon name="alert-circle" color="danger"></ion-icon>
+    <p>{{ errorMessage }}</p>
+    <ion-button (click)="loadUsers()" fill="outline">
+      Try Again
+    </ion-button>
+  </div>
+
+  <!-- No Users State -->
+  <div *ngIf="!isLoading && !errorMessage && users.length === 0" class="no-users-container">
+    <ion-icon name="people" color="medium"></ion-icon>
+    <p>No users found</p>
+    <ion-button (click)="loadUsers()" fill="outline">
+      Refresh
+    </ion-button>
+  </div>
+
+  <!-- Users List -->
+  <ion-list *ngIf="!isLoading && !errorMessage && users.length > 0">
+    <ion-item *ngFor="let user of users">
+      <ion-avatar slot="start">
+        <img [src]="user.photo || 'assets/no-image.jpg'" />
+      </ion-avatar>
+
+      <ion-label>
+        <h2>{{ user.name || 'Unknown User' }}</h2>
+        <p>{{ user.email || 'No email' }}</p>
+        <p *ngIf="user.bio">{{ user.bio }}</p>
+      </ion-label>
+
+      <!-- Ban Toggle with Label -->
+      <div slot="end" class="ban-toggle-container">
+        <ion-label>Banned</ion-label>
+        <ion-toggle
+          [checked]="user.isBanned"
+          color="warning"
+          (ionChange)="toggleBan(user, $event)"
+        ></ion-toggle>
+      </div>
+
+      <!-- Delete Button -->
+      <ion-button fill="outline" color="danger" (click)="deleteUser(user.id)">
+        Delete
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

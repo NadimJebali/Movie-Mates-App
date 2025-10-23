@@ -46,7 +46,7 @@ export class GeminiService {
       return { score: 0, summary: 'Could not parse Gemini response.' };
     } catch (error: any) {
       console.error('Gemini error:', error);
-      return { score: 0, summary: 'Error during compatibility analysis.' };
+      return { score: 0, summary: 'Oops an error accured, try again.' };
     }
   }
 }

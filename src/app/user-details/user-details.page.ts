@@ -21,8 +21,11 @@ export class UserDetailsPage implements OnInit {
   user = {
     name: '',
     username: '',
+    email: '',
     age: '',
     bio: '',
+    sex: '',
+    isBanned: false,
     images: [] as string[],
     movies: [] as string[],
     role: UserRole,
@@ -87,8 +90,11 @@ export class UserDetailsPage implements OnInit {
       const userData = {
         name: this.user.name,
         username: this.user.username,
+        email: currentUser.email,
         age: this.user.age,
         bio: this.user.bio,
+        sex: this.user.sex,
+        isBanned: false,
         movies: this.user.movies,
         images: this.user.images,
         role: 'USER',

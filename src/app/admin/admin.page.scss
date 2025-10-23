@@ -1,0 +1,61 @@
+/* admin-menu.page.scss */
+
+/* Menu background & header */
+ion-menu {
+  --background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  --ion-color-primary: #ff5c8d;
+
+  ion-toolbar {
+    --background: linear-gradient(135deg, #ff6aa7, #ff9bc0);
+    --color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  ion-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+}
+
+/* Menu list items */
+ion-list {
+  padding: 16px 0;
+
+  ion-item {
+    margin: 6px 12px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    ion-icon {
+      color: white;
+      font-size: 1.4rem;
+    }
+
+    ion-label {
+      color: white;
+      font-weight: 500;
+      margin-left: 8px;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(4px);
+    }
+  }
+}
+
+/* Content area (router outlet) */
+#adminContent {
+  --background: #f6f7fb; /* light gray */
+  min-height: 100vh;
+}
+
+/* Optional: floating highlight effect for active menu */
+ion-item.activated {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 16px rgba(255, 92, 141, 0.3);
+}

@@ -96,6 +96,7 @@ export class FirebaseService {
     return this.currentUserSubject.value;
   }
 
+
   // Realtime Database Methods
   async saveUserProfile(userId: string, userData: any): Promise<void> {
     try {
