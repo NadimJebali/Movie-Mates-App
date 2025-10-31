@@ -11,52 +11,58 @@ import { UserRole } from '../enums/user-role.enum';
   standalone: false,
 })
 export class UserDetailsPage implements OnInit {
+
+  user = {
+    name: '',
+    username: '',
+    email: '',
+    age: '',
+    bio: '',
+    sex: '',
+    isBanned: false,
+    images: [] as string[],
+    movies: [] as string[],
+    role: UserRole.USER,
+  };
+
+  availableMovies: any[] = [];
+  isLoading = false;
+  errorMessage = '';
+
   constructor(
     private router: Router,
     private firebaseService: FirebaseService
   ) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    await this.loadMovies();
+  }
 
-  user = {
-    name: '',
-    username: '',
-    age: '',
-    bio: '',
-    images: [] as string[],
-    movies: [] as string[],
-    role: UserRole,
-  };
-
-  // ✅ Predefined movie list
-  availableMovies = [
-    'Inception',
-    'Interstellar',
-    'The Matrix',
-    'Titanic',
-    'Avatar',
-    'The Dark Knight',
-    'La La Land',
-    'Forrest Gump',
-    'The Shawshank Redemption',
-    'The Godfather',
-  ];
-
-  // ✅ Toggle movie selection
-  toggleMovie(movie: string) {
-    const index = this.user.movies.indexOf(movie);
-    if (index > -1) {
-      this.user.movies.splice(index, 1);
-    } else {
-      this.user.movies.push(movie);
+  async loadMovies() {
+    try {
+      this.isLoading = true;
+      this.availableMovies = await this.firebaseService.getAllMovies();
+    } catch (error) {
+      console.error('Error loading movies:', error);
+      this.errorMessage = 'Failed to load movies.';
+    } finally {
+      this.isLoading = false;
     }
   }
 
-  isSelected(movie: string): boolean {
-    return this.user.movies.includes(movie);
+  toggleMovie(movieName: string) {
+    const index = this.user.movies.indexOf(movieName);
+    if (index > -1) {
+      this.user.movies.splice(index, 1);
+    } else {
+      this.user.movies.push(movieName);
+    }
   }
 
-  // ✅ Camera methods
+  isSelected(movieName: string): boolean {
+    return this.user.movies.includes(movieName);
+  }
+
   async pickImage() {
     const image = await Camera.getPhoto({
       quality: 90,
@@ -75,7 +81,6 @@ export class UserDetailsPage implements OnInit {
     if (image) this.user.images.push(image.dataUrl!);
   }
 
-  // ✅ Save profile to Firebase
   async saveProfile() {
     try {
       const currentUser = this.firebaseService.getCurrentUser();
@@ -85,17 +90,12 @@ export class UserDetailsPage implements OnInit {
       }
 
       const userData = {
-        name: this.user.name,
-        username: this.user.username,
-        age: this.user.age,
-        bio: this.user.bio,
-        movies: this.user.movies,
-        images: this.user.images,
+        ...this.user,
+        email: currentUser.email,
         role: 'USER',
       };
 
       await this.firebaseService.saveUserProfile(currentUser.uid, userData);
-
       console.log('[v0] User profile saved successfully:', currentUser.uid);
       this.router.navigate(['/tabs']);
     } catch (error) {

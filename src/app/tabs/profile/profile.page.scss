@@ -1,0 +1,89 @@
+.profile-page {
+  --background: linear-gradient(135deg, #ff758c, #ff7eb3);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 16px;
+
+  ion-grid {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .profile-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    text-align: center;
+
+    .avatar-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+
+      ion-avatar {
+        width: 80px;
+        height: 80px;
+        border: 3px solid #ff6aa7;
+      }
+    }
+
+    .profile-field {
+      margin-bottom: 12px;
+
+      h2 {
+        font-weight: 700;
+        color: #333;
+      }
+
+      h3 {
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: #555;
+      }
+
+      p {
+        font-size: 0.95rem;
+        color: #777;
+      }
+    }
+
+    /* Favorite Movies List */
+    ion-item {
+      --background: #ffffff;
+      border-radius: 12px;
+      padding: 12px;
+      margin: 8px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+      ion-label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        h3 {
+          font-weight: 600;
+          margin-bottom: 6px;
+        }
+
+        p {
+          font-size: 0.9rem;
+          color: #555;
+          margin: 2px 0;
+        }
+      }
+    }
+  }
+
+  ion-button.logout-button {
+    --border-radius: 12px;
+    --background: #ff4d6d;
+    --color: white;
+    box-shadow: 0 4px 12px rgba(255, 77, 109, 0.3);
+    margin-top: 20px;
+    width: 100%;
+  }
+}

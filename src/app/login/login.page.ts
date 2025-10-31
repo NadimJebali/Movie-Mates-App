@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../services/firebase.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +16,45 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router,
     private firebaseService: FirebaseService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastCtrl: ToastController
   ) {}
+
+  async ngOnInit() {
+    const currentUser = this.firebaseService.getCurrentUser();
+    if (currentUser) {
+      try {
+        const userData = await this.firebaseService.getUserProfile(currentUser.uid);
+
+        if (userData.isBanned) {
+          const toast = await this.toastCtrl.create({
+            header: `Account Status`,
+            message: 'You have been banned',
+            duration: 3000,
+            position: 'top',
+            color: 'light',
+            cssClass: 'compatibility-toast',
+            buttons: [
+              {
+                text: '✖',
+                role: 'cancel',
+                handler: () => {
+                  console.log('Toast dismissed');
+                },
+              },
+            ],
+          });
+          await toast.present();
+        } else if (userData.role === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/tabs']);
+        }
+      } catch (error) {
+        console.error('Error fetching user data on init:', error);
+      }
+    }
+  }
 
   async onLogin() {
     if (!this.email || !this.password) {
@@ -26,18 +63,36 @@ export class LoginPage implements OnInit {
     }
 
     try {
-      const user = await this.firebaseService.loginUser(
-        this.email,
-        this.password
-      );
-      console.log('Logged in user:', user.uid);
-      this.router.navigate(['/tabs']);
+      const user = await this.firebaseService.loginUser(this.email, this.password);
+      const userData = await this.firebaseService.getUserProfile(user.uid);
+
+      if (userData.isBanned) {
+        const toast = await this.toastCtrl.create({
+          header: `Account Status`,
+          message: 'You have been banned',
+          duration: 3000,
+          position: 'top',
+          color: 'light',
+          cssClass: 'compatibility-toast',
+          buttons: [
+            {
+              text: '✖',
+              role: 'cancel',
+              handler: () => {
+                console.log('Toast dismissed');
+              },
+            },
+          ],
+        });
+        await toast.present();
+      } else if (userData.role === 'ADMIN') {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/tabs']);
+      }
     } catch (error: any) {
       console.error('Login failed:', error);
-      this.showAlert(
-        'Login Failed',
-        error.message || 'Invalid email or password.'
-      );
+      this.showAlert('Login Failed', error.message || 'Invalid email or password.');
     }
   }
 
@@ -49,6 +104,4 @@ export class LoginPage implements OnInit {
     });
     await alert.present();
   }
-
-  ngOnInit() {}
 }

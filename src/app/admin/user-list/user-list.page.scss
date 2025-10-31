@@ -1,0 +1,121 @@
+/* Page background */
+ion-content {
+  --background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: #333;
+}
+
+/* Toolbar styling */
+.admin-toolbar {
+  --background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  --color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+
+  ion-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  ion-menu-button {
+    --color: white;
+    font-size: 1.2rem;
+  }
+
+  ion-menu-button:hover {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+  }
+}
+
+/* Loading, Error, No Users states */
+.loading-container,
+.error-container,
+.no-users-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  min-height: 50vh;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  margin-top: 16px;
+
+  ion-spinner,
+  ion-icon {
+    margin-bottom: 16px;
+    font-size: 48px;
+  }
+
+  p {
+    margin: 0 0 16px 0;
+    color: #333333;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  ion-button {
+    margin-top: 8px;
+    --border-radius: 20px;
+    --background: linear-gradient(135deg, #ff6aa7, #ff9bc0);
+    --color: white;
+    box-shadow: 0 4px 12px rgba(255, 92, 141, 0.4);
+  }
+}
+
+/* Users list items */
+ion-content.ion-padding {
+  ion-list {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    padding: 8px;
+  }
+
+  ion-item {
+    margin-bottom: 8px;
+    border-radius: 12px;
+    --background: #d9d9d9;
+    box-shadow: 0 2px 8px rgba(209, 209, 209, 0.08);
+    --inner-padding-end: 16px;
+    --inner-padding-start: 16px;
+
+    h2 {
+      font-weight: 600;
+      color: #333333;
+    }
+
+    p {
+      color: #666666;
+      font-size: 0.9rem;
+      margin: 2px 0;
+    }
+
+    .ban-toggle-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-right: 8px;
+
+      ion-label {
+        font-size: 0.75rem;
+        margin-bottom: 4px;
+        color: #ff8c00;
+      }
+
+      ion-toggle {
+        --handle-background: #ffb84d;
+        --background-checked: #ffa500;
+      }
+    }
+
+    ion-button {
+      height: 36px;
+      font-size: 0.85rem;
+    }
+  }
+}
+

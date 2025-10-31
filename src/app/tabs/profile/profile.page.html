@@ -1,13 +1,48 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="profile-page" [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="profile-card">
+          <div class="avatar-container">
+            <ion-avatar>
+              <img src="assets/no-image.jpg" />
+            </ion-avatar>
+          </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+          <ion-card-content>
+            <div class="profile-field">
+              <h2>{{ user?.name || 'Unknown' }}</h2>
+            </div>
+            <div class="profile-field">
+              <h3>Username</h3>
+              <p>{{ user?.username || '-' }}</p>
+            </div>
+            <div class="profile-field">
+              <h3>Email</h3>
+              <p>{{ user?.email || '-' }}</p>
+            </div>
+            <div class="profile-field">
+              <h3>Age</h3>
+              <p>{{ user?.age || '-' }}</p>
+            </div>
+            <div class="profile-field">
+              <h3>Bio</h3>
+              <p>{{ user?.bio || '-' }}</p>
+            </div>
+
+            <ion-item *ngIf="user.movies?.length">
+              <ion-label>
+                <h3>Favorite Movies</h3>
+                <p *ngFor="let movie of user.movies">{{ movie }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-card-content>
+
+          <ion-button class="logout-button" expand="full" (click)="logout()">
+            Logout
+          </ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

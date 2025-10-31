@@ -85,9 +85,9 @@ export class FirebaseService {
   async logoutUser(): Promise<void> {
     try {
       await signOut(this.auth);
-      console.log('[v0] User logged out');
+      console.log('User logged out');
     } catch (error) {
-      console.error('[v0] Logout error:', error);
+      console.error('Logout error:', error);
       throw error;
     }
   }
@@ -108,6 +108,58 @@ export class FirebaseService {
       console.log('[v0] User profile saved:', userId);
     } catch (error) {
       console.error('[v0] Error saving user profile:', error);
+      throw error;
+    }
+  }
+
+  async saveMovie(movieName: string): Promise<void> {
+    try {
+      const moviesRef = ref(this.database, 'movies');
+      const newMovieRef = push(moviesRef);
+      await set(newMovieRef, {
+        name: movieName,
+      });
+
+      console.log('[v0] Movie added:', movieName);
+    } catch (error) {
+      console.error('[v0] Error saving movie:', error);
+      throw error;
+    }
+  }
+
+  async getAllMovies(): Promise<any[]> {
+    try {
+      const moviesRef = ref(this.database, 'movies');
+      const snapshot = await get(moviesRef);
+
+      if (snapshot.exists()) {
+        const movies: any[] = [];
+        snapshot.forEach((childSnapshot) => {
+          movies.push({
+            id: childSnapshot.key,
+            ...childSnapshot.val(),
+          });
+        });
+
+        console.log('[v0] Movies retrieved:', movies.length);
+        return movies;
+      } else {
+        console.log('[v0] No movies found');
+        return [];
+      }
+    } catch (error) {
+      console.error('[v0] Error retrieving movies:', error);
+      throw error;
+    }
+  }
+
+   async deleteMovie(movieId: string): Promise<void> {
+    try {
+      const movieRef = ref(this.database, `movies/${movieId}`);
+      await remove(movieRef);
+      console.log('[v0] Movie deleted:', movieId);
+    } catch (error) {
+      console.error('[v0] Error deleting movie:', error);
       throw error;
     }
   }
