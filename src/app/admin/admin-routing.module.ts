@@ -15,6 +15,13 @@ const routes: Routes = [
             (m) => m.UserListPageModule
           ),
       },
+      {
+        path: 'movie-list',
+        loadChildren: () =>
+          import('./movie-list/movie-list.module').then(
+            (m) => m.MovieListPageModule
+          ),
+      },
       { path: '', redirectTo: 'user-list', pathMatch: 'full' },
     ],
   },

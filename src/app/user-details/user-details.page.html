@@ -1,88 +1,66 @@
 <ion-content class="details-page" [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <ion-card class="details-card">
-          <!-- User Info Form -->
-          <ion-item>
-            <ion-label position="floating">Full Name</ion-label>
-            <ion-input [(ngModel)]="user.name"></ion-input>
+  <ion-card class="details-card">
+    <ion-item>
+      <ion-label position="floating">Full Name</ion-label>
+      <ion-input [(ngModel)]="user.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input [(ngModel)]="user.username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Age</ion-label>
+      <ion-input [(ngModel)]="user.age" type="number" min="0"></ion-input>
+    </ion-item>
+
+    <div class="sex-row">
+      <ion-label class="sex-label">Sex</ion-label>
+      <ion-radio-group [(ngModel)]="user.sex" class="sex-options" mode="ios">
+        <div class="radio-inline">
+          <ion-item lines="none">
+            <ion-radio value="Male" color="primary"></ion-radio>
+            <ion-label>Male</ion-label>
           </ion-item>
-
-          <ion-item>
-            <ion-label position="floating">Username</ion-label>
-            <ion-input [(ngModel)]="user.username"></ion-input>
+          <ion-item lines="none">
+            <ion-radio value="Female" color="primary"></ion-radio>
+            <ion-label>Female</ion-label>
           </ion-item>
+        </div>
+      </ion-radio-group>
+    </div>
 
-          <ion-item>
-            <ion-label position="floating">Age</ion-label>
-            <ion-input [(ngModel)]="user.age" type="number" min="0"></ion-input>
-          </ion-item>
+    <ion-item>
+      <ion-label position="floating">Bio</ion-label>
+      <ion-textarea [(ngModel)]="user.bio"></ion-textarea>
+    </ion-item>
 
-          <!-- Sex Selection -->
-          <div class="sex-row">
-            <ion-label class="sex-label">Sex</ion-label>
+    <!-- Profile Pictures -->
+    <ion-label>Profile Pictures</ion-label>
+    <div class="image-preview">
+      <img *ngFor="let img of user.images" [src]="img" />
+    </div>
+    <ion-button expand="block" (click)="pickImage()">Choose Image</ion-button>
+    <ion-button expand="block" (click)="takePhoto()">Take Photo</ion-button>
 
-            <ion-radio-group
-              [(ngModel)]="user.sex"
-              class="sex-options"
-              mode="ios"
-            >
-              <div class="radio-inline">
-                <ion-item lines="none">
-                  <ion-radio value="Male" color="primary"></ion-radio>
-                  <ion-label>Male</ion-label>
-                </ion-item>
+    <!-- Favorite Movies -->
+    <ion-label>Favorite Movies</ion-label>
+    <div class="chips-container">
+      <ion-chip
+        *ngFor="let movie of availableMovies"
+        [color]="isSelected(movie.name) ? 'primary' : 'medium'"
+        (click)="toggleMovie(movie.name)"
+      >
+        <ion-label>{{ movie.name }}</ion-label>
+        <ion-icon
+          *ngIf="isSelected(movie.name)"
+          name="checkmark-circle"
+          color="success"
+        ></ion-icon>
+      </ion-chip>
+    </div>
 
-                <ion-item lines="none">
-                  <ion-radio value="Female" color="primary"></ion-radio>
-                  <ion-label>Female</ion-label>
-                </ion-item>
-              </div>
-            </ion-radio-group>
-          </div>
-
-          <ion-item>
-            <ion-label position="floating">Bio</ion-label>
-            <ion-textarea [(ngModel)]="user.bio"></ion-textarea>
-          </ion-item>
-
-          <!-- Profile Pictures -->
-          <ion-label>Profile Pictures</ion-label>
-          <div class="image-preview">
-            <img *ngFor="let img of user.images" [src]="img" />
-          </div>
-          <ion-button expand="full" (click)="pickImage()"
-            >Choose Image</ion-button
-          >
-          <ion-button expand="full" (click)="takePhoto()"
-            >Take Photo</ion-button
-          >
-
-          <!-- Favorite Movies -->
-          <!-- Favorite Movies -->
-          <ion-label>Favorite Movies</ion-label>
-          <div class="chips-container">
-            <ion-chip
-              *ngFor="let movie of availableMovies"
-              [color]="isSelected(movie) ? 'primary' : 'medium'"
-              (click)="toggleMovie(movie)"
-            >
-              <ion-label>{{ movie }}</ion-label>
-              <ion-icon
-                *ngIf="isSelected(movie)"
-                name="checkmark-circle"
-                color="success"
-              ></ion-icon>
-            </ion-chip>
-          </div>
-
-          <!-- Save Button -->
-          <ion-button expand="full" (click)="saveProfile()">
-            Save Profile
-          </ion-button>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-button expand="block" (click)="saveProfile()">Save Profile</ion-button>
+  </ion-card>
 </ion-content>

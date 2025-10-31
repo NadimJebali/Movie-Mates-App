@@ -1,0 +1,92 @@
+ion-content {
+  --background: linear-gradient(135deg, #ff758c, #ff7eb3);
+}
+
+/* Toolbar */
+.movie-toolbar {
+  --background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  --color: white;
+  font-weight: 600;
+
+  ion-title {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+}
+
+/* Add movie input */
+.add-movie-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 16px 0;
+  padding: 12px;
+
+  ion-item {
+    --background: transparent;
+  }
+
+  ion-input {
+    flex: 1;
+    --padding-start: 12px;
+    --color: #333;
+  }
+
+  ion-button {
+    --border-radius: 12px;
+    --background: linear-gradient(135deg, #ff6aa7, #ff9bc0);
+    --color: white;
+    box-shadow: 0 2px 8px rgba(255, 92, 141, 0.3);
+  }
+}
+
+/* Movie list */
+.movie-list ion-item {
+  margin: 8px 0;
+  border-radius: 12px;
+  --background: #ffffff;          /* outer card        */
+  --inner-border-radius: 12px;    /* inner wrapper     */
+  --ripple-color: transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  ion-label {
+    font-weight: 500;
+    color: #333;
+  }
+
+  ion-button {
+    --border-radius: 10px;
+    height: 36px;
+  }
+  ion-icon{
+    color: #333;
+  }
+}
+
+/* States */
+.loading-container,
+.error-container,
+.no-movies-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 40px;
+  color: white;
+
+  ion-spinner,
+  ion-icon {
+    margin-bottom: 12px;
+    font-size: 48px;
+  }
+
+  p {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}

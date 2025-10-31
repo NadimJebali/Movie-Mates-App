@@ -77,7 +77,7 @@ ion-content.ion-padding {
   ion-item {
     margin-bottom: 8px;
     border-radius: 12px;
-    background: #d9d9d9; /* grey background */
+    --background: #d9d9d9;
     box-shadow: 0 2px 8px rgba(209, 209, 209, 0.08);
     --inner-padding-end: 16px;
     --inner-padding-start: 16px;
