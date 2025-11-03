@@ -45,9 +45,9 @@ export class FirebaseService {
         this.currentUserSubject.next(user);
       });
 
-      console.log('[v0] Firebase initialized successfully');
+      console.log('Firebase initialized successfully');
     } catch (error) {
-      console.error('[v0] Firebase initialization error:', error);
+      console.error('Firebase initialization error:', error);
     }
   }
 
@@ -59,10 +59,10 @@ export class FirebaseService {
         email,
         password
       );
-      console.log('[v0] User registered:', userCredential.user.uid);
+      console.log('User registered:', userCredential.user.uid);
       return userCredential.user;
     } catch (error) {
-      console.error('[v0] Registration error:', error);
+      console.error('Registration error:', error);
       throw error;
     }
   }
@@ -74,10 +74,10 @@ export class FirebaseService {
         email,
         password
       );
-      console.log('[v0] User logged in:', userCredential.user.uid);
+      console.log('User logged in:', userCredential.user.uid);
       return userCredential.user;
     } catch (error) {
-      console.error('[v0] Login error:', error);
+      console.error('Login error:', error);
       throw error;
     }
   }
@@ -105,9 +105,9 @@ export class FirebaseService {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       });
-      console.log('[v0] User profile saved:', userId);
+      console.log('User profile saved:', userId);
     } catch (error) {
-      console.error('[v0] Error saving user profile:', error);
+      console.error('Error saving user profile:', error);
       throw error;
     }
   }
@@ -120,9 +120,9 @@ export class FirebaseService {
         name: movieName,
       });
 
-      console.log('[v0] Movie added:', movieName);
+      console.log('Movie added:', movieName);
     } catch (error) {
-      console.error('[v0] Error saving movie:', error);
+      console.error('Error saving movie:', error);
       throw error;
     }
   }
@@ -141,14 +141,14 @@ export class FirebaseService {
           });
         });
 
-        console.log('[v0] Movies retrieved:', movies.length);
+        console.log('Movies retrieved:', movies.length);
         return movies;
       } else {
-        console.log('[v0] No movies found');
+        console.log('No movies found');
         return [];
       }
     } catch (error) {
-      console.error('[v0] Error retrieving movies:', error);
+      console.error('Error retrieving movies:', error);
       throw error;
     }
   }
@@ -157,9 +157,9 @@ export class FirebaseService {
     try {
       const movieRef = ref(this.database, `movies/${movieId}`);
       await remove(movieRef);
-      console.log('[v0] Movie deleted:', movieId);
+      console.log('Movie deleted:', movieId);
     } catch (error) {
-      console.error('[v0] Error deleting movie:', error);
+      console.error('Error deleting movie:', error);
       throw error;
     }
   }
@@ -169,14 +169,14 @@ export class FirebaseService {
       const userRef = ref(this.database, `users/${userId}`);
       const snapshot = await get(userRef);
       if (snapshot.exists()) {
-        console.log('[v0] User profile retrieved:', userId);
+        console.log('User profile retrieved:', userId);
         return snapshot.val();
       } else {
-        console.log('[v0] No user profile found:', userId);
+        console.log('No user profile found:', userId);
         return null;
       }
     } catch (error) {
-      console.error('[v0] Error retrieving user profile:', error);
+      console.error('Error retrieving user profile:', error);
       throw error;
     }
   }
@@ -195,9 +195,9 @@ export class FirebaseService {
         action,
         timestamp: new Date().toISOString(),
       });
-      console.log('[v0] Swipe interaction saved:', action);
+      console.log('Swipe interaction saved:', action);
     } catch (error) {
-      console.error('[v0] Error saving swipe interaction:', error);
+      console.error('Error saving swipe interaction:', error);
       throw error;
     }
   }
@@ -215,14 +215,14 @@ export class FirebaseService {
             ...childSnapshot.val(),
           });
         });
-        console.log('[v0] All users retrieved:', users.length);
+        console.log('All users retrieved:', users.length);
         return users;
       } else {
-        console.log('[v0] No users found');
+        console.log('No users found');
         return [];
       }
     } catch (error) {
-      console.error('[v0] Error retrieving users:', error);
+      console.error('Error retrieving users:', error);
       throw error;
     }
   }
@@ -241,12 +241,12 @@ export class FirebaseService {
             });
           });
         }
-        console.log('[v0] Users updated:', users.length);
+        console.log('Users updated:', users.length);
         callback(users);
       });
       return unsubscribe;
     } catch (error) {
-      console.error('[v0] Error setting up users listener:', error);
+      console.error('Error setting up users listener:', error);
       throw error;
     }
   }
@@ -260,9 +260,9 @@ export class FirebaseService {
         user2: userId2,
         matchedAt: new Date().toISOString(),
       });
-      console.log('[v0] Match saved');
+      console.log('Match saved');
     } catch (error) {
-      console.error('[v0] Error saving match:', error);
+      console.error('Error saving match:', error);
       throw error;
     }
   }
@@ -285,10 +285,10 @@ export class FirebaseService {
           }
         });
       }
-      console.log('[v0] User matches retrieved:', userMatches.length);
+      console.log('User matches retrieved:', userMatches.length);
       return userMatches;
     } catch (error) {
-      console.error('[v0] Error retrieving user matches:', error);
+      console.error('Error retrieving user matches:', error);
       throw error;
     }
   }
@@ -301,9 +301,9 @@ export class FirebaseService {
         ...updates,
         updatedAt: new Date().toISOString(),
       });
-      console.log('[v0] User data updated:', userId);
+      console.log('User data updated:', userId);
     } catch (error) {
-      console.error('[v0] Error updating user data:', error);
+      console.error('Error updating user data:', error);
       throw error;
     }
   }
@@ -313,9 +313,9 @@ export class FirebaseService {
     try {
       const userRef = ref(this.database, `users/${userId}`);
       await remove(userRef);
-      console.log('[v0] User data deleted:', userId);
+      console.log('User data deleted:', userId);
     } catch (error) {
-      console.error('[v0] Error deleting user data:', error);
+      console.error('Error deleting user data:', error);
       throw error;
     }
   }
