@@ -34,11 +34,11 @@ export class RegisterPage implements OnInit {
         this.email,
         this.password
       );
-      console.log('[v0] Registration successful for user:', user.uid);
-      console.log('[v0] User profile saved to database');
+      console.log('Registration successful for user:', user.uid);
+      console.log('User profile saved to database');
       this.router.navigate(['/details']);
     } catch (error: any) {
-      console.error('[v0] Registration failed:', error);
+      console.error('Registration failed:', error);
       this.errorMessage =
         error.message || 'Registration failed. Please try again.';
     } finally {
